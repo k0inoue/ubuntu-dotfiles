@@ -1,0 +1,27 @@
+! 0 |
+
+
+! modify keys
+! caps_lock -> escape
+remove Lock = Caps_Lock
+keycode 66 = Escape NoSymbol Escape
+! escape -> Caps_Lock Num_Lock
+keycode 9 = Caps_Lock Num_Lock
+
+! space --> shift
+remove Shift = Shift_L
+keycode 65 = Shift_L NoSymbol Shift_L
+add Shift = Shift_L
+
+! muhenkan --> control
+remove Control = Control_L
+keycode 102 = Control_L
+add Control = Control_L
+
+! henkan --> space, ctrl+:return
+keycode 100 = space Return
+
+! hiragana_katakana --> zenkaku_hankaku
+keycode 101 = Zenkaku_Hankaku
+add control = Control_L
+
