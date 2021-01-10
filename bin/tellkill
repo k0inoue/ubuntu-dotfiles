@@ -1,0 +1,13 @@
+#!/bin/sh
+selected=`ps ax \
+    | grep tell \
+    | grep -v "grep tell" \
+    | grep -v "$0" \
+    | fzf -m`
+
+[ -z "$selected" ] && exit 0 
+
+echo "$selected" \
+    | sed 's/^[ ]*\([0-9]\{1,\}\)[^ ]*.*$/\1/' \
+    | xargs kill
+

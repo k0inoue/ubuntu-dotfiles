@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# use access command
+GETCMD='curl'
+#GETCMD='wget -q -O -'
+#GETCMD='fetch -q -o -'
+
+# analyze options
+OPTION=2n
+case "$1" in
+  -h )
+    $GETCMD "http://wttr.in/:help?A"
+    exit 0
+    ;;
+  -* )
+    OPTION=`echo $1 | cut -c 2-${#1}`
+    shift
+    ;;
+esac
+
+# set location
+LOCATION=${1-fukuoka}
+
+# get wether info
+$GETCMD "http://wttr.in/$LOCATION?AF$OPTION&lang=ja"
+
+

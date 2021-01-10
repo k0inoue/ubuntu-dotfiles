@@ -1,8 +1,7 @@
+! modify keys
 ! 0 |
 keycode 19 = 0 bar
 
-
-! modify keys
 ! caps_lock -> escape
 remove Lock = Caps_Lock
 keycode 66 = Escape NoSymbol Escape

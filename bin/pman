@@ -1,0 +1,59 @@
+#!/bin/sh
+CMD_NAME=`basename $0`
+TEMP_FILE="$HOME/.cache/$CMD_NAME.$$.html"
+
+# help
+Usage(){
+    cat <<- HELPEND
+	$CMD_NAME [-b][-f][-u] PageName
+	    Open manual page.
+	    -b Base Definitions (XBD)     ... C header files.
+	    -f System Interfaces (XSH)    ... System calls & C Libraries
+	    -u Shell and utillities (XCU) ... Command & C libraries [default]
+
+	$CMD_NAME -s Keyword
+	    Searh manual page by keyword.
+
+HELPEND
+}
+
+# manual base url
+BASE_URL='https://pubs.opengroup.org/'
+
+# manual version
+VERSION="9699919799"
+
+# analyze options & params
+CATEGORY=idx
+PAGE_NAME=fidx2
+SEARCH_MODE=
+if [ $# -eq 1 ]; then
+    CATEGORY=utilities
+    PAGE_NAME=$1
+elif [ $# -ge 2 ]; then
+    case "$1" in
+        -b ) CATEGORY=basedefs  ;;
+        -f ) CATEGORY=functions ;;
+        -u ) CATEGORY=utilities ;;
+        -s ) SEARCH_MODE=1      ;;
+        *  ) Usage && exit 1    ;;
+    esac
+    PAGE_NAME=$2
+fi
+
+# view POSIX manual
+if [ -n "$SEARCH_MODE" ]; then
+    wget -q -k -O "$TEMP_FILE" --post-data="value=${PAGE_NAME}" "${BASE_URL}cgi/kman4.cgi"
+    w3m -F +10 "$TEMP_FILE"
+else
+    wget -q -k -O "$TEMP_FILE" "${BASE_URL}onlinepubs/${VERSION}/${CATEGORY}/${PAGE_NAME}.html"
+    if [ $? -eq 0 ]; then
+        w3m -F "$TEMP_FILE"
+    else
+        echo "Page '$PAGE_NAME' is not found in '$CATEGORY'" 1>&2
+    fi
+fi
+
+# cleanup
+rm "$TEMP_FILE"
+

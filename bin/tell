@@ -1,0 +1,44 @@
+#!/bin/sh
+CMD_NAME=`basename $0`
+usage_exit() {
+    cat <<- HELPEND
+	$CMD_NAME wait_time[hms] message
+	    wait_time   wait time[unit]
+	        [unit]
+	           h:   hours = wait_seconds * 3600 [sec]
+	           m:   minutes = wait_seconds * 60 [sec]
+	           s:   seconds = wait_seconds [sec] (default)
+
+	    message     any message
+HELPEND
+    exit 1
+}
+
+# set wait seconds
+if [ ${#1} -ge 2 ]; then
+    target_time=`echo "$1" | cut -c 1-\`expr ${#1} - 1\``
+fi
+case "$1" in
+    *h ) wait_sec=`expr $target_time \* 3600`
+        ;;
+    *m ) wait_sec=`expr $target_time \* 60`
+        ;;
+    *s ) wait_sec="$target_time"
+        ;;
+    *  ) wait_sec="$1"
+        ;;
+esac
+
+# wait_sec is digit?
+if [ -z "`echo "$wait_sec" | grep '^[0-9]\{1,\}$'`" ]; then
+    echo "Invalid wait time!: `$1`"
+    usage_exit
+fi
+
+# set message
+shift 1
+msg="$*"
+
+# wait & excuete command
+sleep $wait_sec && notify-send "$msg" &
+

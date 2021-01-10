@@ -1,0 +1,14 @@
+#!/bin/sh
+if [ $# -eq 1 ]; then
+    # Search current directory
+    find . -type f -exec grep "$1" /dev/null {} \;
+#    echo #1
+elif [ $# -eq 2 ]; then
+    # Search param directory
+    #find "$1" -type f -exec grep "$2" /dev/null {} \;
+    find "$1" -type f | grep "$2" 2>/dev/null
+#    echo #2
+else
+    # USAGE
+    echo $0 [path/to] SearchString 
+fi

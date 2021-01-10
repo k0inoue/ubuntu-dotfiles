@@ -1,0 +1,210 @@
+#################################################
+# Dependent other plugins
+#################################################
+# filetype judge
+[[plugins]]
+repo='Shougo/context_filetype.vim'
+
+# exec buffer code
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+##################################################
+# View customize
+##################################################
+# mark visible
+[[plugins]]
+repo = 'kshenoy/vim-signature'
+frozen = 1
+
+##################################################
+# History customize
+##################################################
+# visble undotree
+[[plugins]]
+repo = 'mbbill/undotree'
+hook_add = '''
+source ~/.config/nvim/plugins/undotree.rc.vim
+'''
+
+# support repeat command
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+# repeat commands by repete one key
+[[plugins]]
+repo = 'kana/vim-submode'
+
+##################################################
+# Input support
+##################################################
+# complete ''""``[]()...
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+# auto complete anything
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = 'context_filetype.vim'
+on_event = 'InsertEnter'
+hook_add = '''
+source ~/.config/nvim/plugins/deoplete.rc.vim
+'''
+
+# snippets
+[[plugins]]
+repo = 'SirVer/ultisnips'
+on_event = 'EnterInsert'
+hook_add = '''
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME.'.cache/nvim/dein/repos/github.com/honza/vim-snippets/UltiSnips', $HOME.'.config/nvim/snippets']
+'''
+
+# snippets source
+[[plugins]]
+repo = 'honza/vim-snippets'
+
+# support comment/uncomment
+[[plugins]]
+repo = 'tyru/caw.vim'
+
+# paste with yank histories
+[[plugins]]
+repo = 'svermeulen/vim-yoink'
+
+##################################################
+# Visual mode support
+##################################################
+# expand(or shrlink) select region in visual mode
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+
+##################################################
+# Jump / Search / Replace support
+##################################################
+# fzf(bin) install
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --bin'
+merged = '0'
+
+# use fzf by vim
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+hook_add = '''
+source ~/.config/nvim/plugins/fzf.rc.vim
+'''
+
+# add migemo search command
+[[plugins]]
+repo = 'haya14busa/vim-migemo'
+
+# hilight for multiple words
+[[plugins]]
+repo = 't9md/vim-quickhl'
+hook_add = '''
+source ~/.config/nvim/plugins/vim-quickhl.rc.vim
+'''
+
+# hilight uniq chars in cursol line
+[[plugins]]
+repo = 'unblevable/quick-scope'
+hook_add = '''
+source ~/.config/nvim/plugins/quick-scope.rc.vim
+'''
+
+# vim motion on speed
+[[plugins]]
+repo ='easymotion/vim-easymotion'
+hook_add = '''
+source ~/.config/nvim/plugins/vim-easymotion.rc.vim
+'''
+
+##################################################
+# Target filetype support
+##################################################
+# Markdown
+#------------------------------
+# make markdown table
+[[plugins]]
+repo = 'mattn/vim-maketable'
+on_ft = ['markdown']
+
+# Common Development support
+#------------------------------
+#xxx
+# Language server client
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+hook_add = '''
+source ~/.config/nvim/plugins/LanguageClient-neovim.rc.vim
+'''
+
+# Go
+#------------------------------
+# [[plugins]]
+# repo = 'fatih/vim-go'
+# hook_add = '''
+# source ~/.config/nvim/plugins/vimgo.rc.vim
+# '''
+
+# exec goimports when BufWrite
+[[plugins]]
+repo = 'mattn/vim-goimports'
+on_ft = 'go'
+
+# make function by target struct
+[[plugins]]
+repo = 'mattn/vim-goimpl'
+on_ft = 'go'
+
+# use delve(golang debugger) on vim
+[[plugins]]
+repo = 'sebdah/vim-delve'
+on_ft = 'go'
+
+# Rust
+#------------------------------
+##[[plugins]]
+##repo = 'rust-lang/rust.vim'
+##on_ft = 'rust'
+##hook_add = '''
+##source ~/.config/nvim/plugins/rust.rc.vim
+##'''
+
+
+##################################################
+# Others
+##################################################
+#[[plugins]]
+#repo = 'voldikss/vim-translate-me'
+#hook_add = '''
+#let g:vtm_target_lang = 'ja'
+#let g:vtm_default_engines = ['google']
+#'''
+
+# Git
+#------------------------------
+# visible git change mark
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+# run git operation on vim
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+# Aize online judge
+#------------------------------
+[[plugins]]
+repo = 'NoahOrberg/diesirae.nvim'
+hook_add = '''
+source ~/.config/nvim/plugins/diesirae.nvim.rc.vim
+'''
+
+## translate
+#[[plugins]]
+#repo = 'skanehira/translate.vim'
+
