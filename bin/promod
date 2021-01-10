@@ -4,5 +4,5 @@ tell 10m "10 min"
 tell 20m "20 min"
 tell 25m
 tell 30m "Get to work!"
-tell 30m -c "$0"
+#tell 30m -c "$0"
 
