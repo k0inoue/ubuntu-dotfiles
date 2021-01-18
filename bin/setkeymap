@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# set keymap config
+if [ -f "$HOME/.xmodmap" ] ; then
+    xmodmap "$HOME/.xmodmap"
+fi
+

@@ -22,7 +22,7 @@ for f in $(find . | sed 's@^\./@@'); do
 
   # make links
   case "$f" in
-    \.login_conf )
+    \.login_conf | \.config/autostart/* )
       # hard link
       ln -fv   "$DOT_PATH/$f" "$HOME"/"$f"
       ;;

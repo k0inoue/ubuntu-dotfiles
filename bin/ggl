@@ -35,6 +35,6 @@ QUERY=$QUERY`echo $@ | \
         -e 's/ /+/g'`
 
 # startup browser
-$BROWSER_CMD $BROWSER_OPT $AT_LINE "$BASE_URL$QUERY"
+$BROWSER_CMD $BROWSER_OPT $AT_LINE "$BASE_URL$QUERY" &
 
 
