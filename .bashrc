@@ -116,3 +116,18 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# git aliases
+alias ga='git add'
+alias gd='git diff'
+alias gs='git status'
+alias gc='git commit -m'
+alias gp='git pull'
+
+# docker aliases
+alias dirm='docker rmi'
+alias dirmnone='docker rmi $(docker images -f "dangling=true" -q)'
+alias dirmnonef='docker rmi -f $(docker images -f "dangling=true" -q)'
+alias dils='docker images'
+alias dcls='docker container ls'
+

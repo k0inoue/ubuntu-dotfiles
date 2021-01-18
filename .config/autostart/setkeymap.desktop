@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/effect/bin/setkeymap
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[ja_JP]=setkeymap-config
+Name=setkeymap-config
+Comment[ja_JP]=キーマップ設定
+Comment=キーマップ設定
