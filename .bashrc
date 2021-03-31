@@ -117,6 +117,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# disable ctrl+s, ctrl+q
+if [[ -t 0 ]]; then
+  stty stop undef
+  stty start undef
+fi
+
+# util alias
+alias nocolor='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
+
 # git aliases
 alias ga='git add'
 alias gd='git diff'
@@ -131,3 +140,34 @@ alias dirmnonef='docker rmi -f $(docker images -f "dangling=true" -q)'
 alias dils='docker images'
 alias dcls='docker container ls'
 
+# robocon aliases
+devdir=${HOME}/catkin_ws/src/burger_war_dev
+kitsh=${devdir}/commands/kit.sh
+alias kitbuild="bash ${devdir}/commands/docker-build.sh"
+alias kitwake="bash ${devdir}/commands/docker-launch.sh"
+alias kit="bash ${kitsh} $@"
+alias kitc="bash ${kitsh} -c $@"
+alias ws-build="bash ${kitsh} -c catkin build"
+alias sim="bash ${kitsh} -s sim_with_judge.sh"
+alias simstart="bash ${kitsh} -s start.sh"
+alias simtest="bash ${kitsh} -s sim_run_test.sh"
+alias simstop="docker stop burger-war-dev"
+alias vkit="bash ${kitsh} -t vnc $@"
+alias vkitc="bash ${kitsh} -t vnc -c $@"
+alias vkitbuild="bash ${devdir}/commands/docker-build.sh -t vnc"
+alias vkitwake="bash ${devdir}/commands/docker-launch.sh -t vnc"
+alias vsim="bash ${kitsh} -t vnc -s sim_with_judge.sh"
+alias vsimstart="bash ${kitsh} -t vnc -s start.sh"
+alias vsimtest="bash ${kitsh} -t vnc -s sim_run_test.sh"
+alias vsimstop="docker stop burger-war-vnc"
+alias wd="cd ${HOME}/catkin_ws/src"
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+#proxy_server="ec2-18-183-240-147.ap-northeast-1.compute.amazonaws.com:8080"
+#export HTTP_PROXY="http://${proxy_server}"
+#export HTTPS_PROXY=${HTTP_PROXY}
+#export http_proxy=${HTTP_PROXY}
+#export https_proxy=${HTTP_PROXY}
+#export no_proxy="127.0.0.1,localhost,${HOSTNAME}"

@@ -1,0 +1,58 @@
+#!/bin/sh
+# $0 [-d Depth] [FilePath]
+DEFAULT_DEPTH=2
+MAX_DEPTH=5
+
+# Analyze option & params
+if [ "$1" = "-d" ]; then
+  depth=$2
+  file_path=${3-}
+else
+  depth=$DEFAULT_DEPTH
+  file_path=${1-}
+fi
+
+if [ $depth -le 1 -o $depth -gt $MAX_DEPTH ]; then
+  echo "Err: ingore -d Depth (${MAX_DEPTH} >= Depth >= 2)" 1>&2
+  exit 1
+fi
+
+# Make table of contents from markdown
+pick_header(){
+  grep '^\(#\{2,'"$1"'\}[^#]\|```\)'  \
+  | sed '/^```/','/^```/d'            \
+  | sed 's/^\(#\{1,\}\) *\(.*\) *$/\1\2/'
+}
+make_link_path(){
+  tr -d '!"#$%&()~=^|{}[]`*@:+;?\<>,./\\' \
+  | tr -d '！”＃＄％＆（）〜＝＾｜｛｝「」｀＊＠：＋；？￥＜＞、。・' \
+  | tr -d "'’"                           \
+  | tr '[A-Z ]' '[a-z-]'                \
+  | sed 's/^\(.*\)$/#\1/'
+}
+make_link_title(){
+  sed 's/^#\{1,\}\(.*\)$/\1/'
+}
+make_indent(){
+  sed 's/^#\{2\}\(.*\)$/\1/'            \
+  | sed 's/^\( *\)#\(#*\).*$/    \1\2/' \
+  | sed 's/^\( *\)#\(#*\).*$/    \1\2/' \
+  | sed 's/^\( *\)#\(#*\).*$/    \1\2/' \
+  | sed 's/^\( *\).*$/\1/'
+}
+make_toc(){
+  while read header; do
+    path=$(echo "$header" | make_link_path)
+    title=$(echo "$header" | make_link_title)
+    indent=$(echo "$header" | make_indent)
+    echo "${indent}- [$title]($path)"
+  done
+}
+
+if [ -n "$file_path" ]; then
+  # input by file
+  pick_header $depth < "$file_path" | make_toc
+else
+  # input by stdin
+  pick_header $depth | make_toc
+fi
